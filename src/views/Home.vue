@@ -2,9 +2,9 @@
   <div class="home">
     <section class="section">
       <div class="container has-text-centered">
-        <button v-if="!user" @click="doLogin" class="button">Login with Google</button>
+        <button v-if="!this.$store.state.user.user" @click="doLogin" class="button">Login with Google</button>
         <template v-else>
-          <h1 class="title has-text-text-centered"> Hi {{ user.displayName }} </h1>
+          <h1 class="title has-text-text-centered"> Hi {{ this.$store.state.user.user.displayName }} </h1>
           <button @click="doLogout" class="button">Logout with Google</button>
         </template>
       </div>
@@ -38,7 +38,8 @@ export default {
     async doLogout(){
       try{
         const logout = await auth.signOut();
-        this.user = null;
+        this.user = null
+        this.$store.commit("setUser", null);
         console.log(logout);
       }catch(err){
         console.log(err.message);

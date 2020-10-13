@@ -3,11 +3,13 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
-
+import VueToast from "vue-toast-notification"
+import "vue-toast-notification/dist/theme-default.css";
 require("./assets/css/main.scss");
 
-import {db} from "./firebase";
-console.log(db);
+Vue.use(VueToast,{
+  position: "button"
+});
 
 Vue.config.productionTip = false
 
