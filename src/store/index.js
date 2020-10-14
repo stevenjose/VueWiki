@@ -20,7 +20,6 @@ const store = new Vuex.Store({
           });
         }else{
           commit("setUser", null);
-
         }
 
       })

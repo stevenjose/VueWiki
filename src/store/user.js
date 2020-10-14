@@ -9,9 +9,14 @@ export default {
     }
   },
   actions: {
-    async doLogin({commit}, {email, password}){
+    async doLogin({commit},{email, password}){
       await auth.signInWithEmailAndPassword(email, password);
-      commit("setUset", auth.currentUser);
+      console.log(auth.currentUser);
+      commit("setUser", {
+        "uid": auth.currentUser.uid,     // << Just the bits we need
+        "email": auth.currentUser.email,
+        "displayName": auth.currentUser.displayName,
+      });
     },
     async doRegister({commit}, {name, email, password}){
       await auth.createUserWithEmailAndPassword(email, password);
@@ -19,7 +24,11 @@ export default {
       await user.updateProfile({
         displayName: name
       })
-      commit("setUser", user);
+      commit("setUser", {
+        "uid": auth.currentUser.uid,     // << Just the bits we need
+        "email": auth.currentUser.email,
+        "displayName": auth.currentUser.displayName,
+      });
     },
     async doLogout({commit}){
       await auth.signOut();

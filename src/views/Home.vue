@@ -41,6 +41,7 @@ export default {
         this.user = null
         this.$store.commit("setUser", null);
         console.log(logout);
+        this.$router.push({ name: "auth"});
       }catch(err){
         console.log(err.message);
       }
