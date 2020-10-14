@@ -148,6 +148,7 @@ export default {
           password: this.userData.password
         });
         console.log("Logged in");
+        this.$toast.success("Logged in");
         this.$router.push({ name: "Home"});
       }catch(error){
         console.log(error.message);
@@ -165,6 +166,7 @@ export default {
           password: this.userData.password
         });
         console.log("Account created in");
+        this.$toast.success("Account created in");
         this.$router.push({ name: "Home"});
       }catch(error){
         console.log(error.message);
