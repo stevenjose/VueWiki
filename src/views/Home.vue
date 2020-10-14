@@ -1,18 +1,52 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <section class="section">
+      <div class="container has-text-centered">
+        <button v-if="!this.$store.state.user.user" @click="doLogin" class="button">Login with Google</button>
+        <template v-else>
+          <h1 class="title has-text-text-centered"> Hi {{ this.$store.state.user.user.displayName }} </h1>
+          <button @click="doLogout" class="button">Logout with Google</button>
+        </template>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+
+import {fb, auth } from "../firebase";
 
 export default {
   name: 'Home',
+  data(){
+    return {
+       user: null
+    };
+  },
   components: {
-    HelloWorld
+  },
+  methods: {
+    async doLogin(){
+      try{
+        const provider = new fb.auth.GoogleAuthProvider();
+        const user = await auth.signInWithPopup(provider);
+        this.user = user.user;
+      }catch(err){
+        console.error(err.message);
+      }
+    },
+    async doLogout(){
+      try{
+        const logout = await auth.signOut();
+        this.user = null
+        this.$store.commit("setUser", null);
+        console.log(logout);
+        this.$toast.info("Logged in");
+        this.$router.push({ name: "auth"});
+      }catch(err){
+        console.log(err.message);
+      }
+    }
   }
 }
 </script>
