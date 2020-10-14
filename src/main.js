@@ -3,12 +3,16 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
-import VueToast from "vue-toast-notification"
-import "vue-toast-notification/dist/theme-default.css";
+import VueToast from 'vue-toast-notification';
+// Import one of available themes
+import 'vue-toast-notification/dist/theme-default.css';
+//import 'vue-toast-notification/dist/theme-sugar.css';
+
 require("./assets/css/main.scss");
 
 Vue.use(VueToast,{
-  position: "button"
+  position: "top-right",
+  duration: 3000
 });
 
 Vue.config.productionTip = false
